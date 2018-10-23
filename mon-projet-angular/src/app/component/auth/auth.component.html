@@ -1,0 +1,7 @@
+<div class="container">
+  <h2>Authentification</h2>
+  <h3 *ngIf="authStatus">Vous êtes connecté !!</h3>
+  <h3 *ngIf="!authStatus">Vous êtes déconnecté...</h3>
+  <button class="btn btn-success" *ngIf="!authStatus" (click)="onSignIn()"> Se connecter</button>
+  <button class="btn btn-danger" *ngIf="authStatus" (click)="onSignOut()"> Se déconnecter</button>
+</div>

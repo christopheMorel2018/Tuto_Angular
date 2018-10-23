@@ -1,0 +1,15 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li routerLinkActive="active"><a routerLink="auth"> Authentification</a></li>
+            <li routerLinkActive="active"><a routerLink="appareils"> Appareils</a></li>
+        </ul>
+        <div class="navbar-right">
+            <p>Vous êtes connectés depuis {{ secondes }} secondes</p>
+        </div>
+    </div>
+</nav>
+
+<router-outlet></router-outlet>
+
