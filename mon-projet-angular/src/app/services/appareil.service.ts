@@ -1,28 +1,17 @@
 import { Subject } from "rxjs";
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 
+@Injectable()
 export class AppareilService{
     
 // https://openclassrooms.com/fr/courses/4668271-developpez-des-applications-web-avec-angular/5089331-observez-les-donnees-avec-rxjs
 
     appareilSubject = new Subject<any[]>();
 
-    private appareils = [
-        {
-            id: 1,
-          name: 'Machine à laver',
-          status: 'éteint'
-        },
-        {
-            id: 2,
-          name: 'Télévision',
-          status: 'allumé'
-        },
-        {
-            id: 3,
-          name: 'Ordinateur',
-          status: 'éteint'
-        }
-      ];
+    private appareils = [];
+
+      constructor(private httpClient: HttpClient){}
 
       emitAppareilSubject()
       {
@@ -64,7 +53,7 @@ export class AppareilService{
           this.emitAppareilSubject();
       }
 
-      switchOffAll()
+      switchOffAll() 
       {
           for (let appareil of this.appareils)
           {
@@ -83,5 +72,29 @@ export class AppareilService{
       {
           this.appareils[index].status='éteint';
           this.emitAppareilSubject();
+      }
+
+      saveAppareilToServer(){
+          this.httpClient.put('https://http-client-demo-18d7a.firebaseio.com/appareils.json',this.appareils)
+                        .subscribe(
+                            () => {
+                                console.log('Enregistrement terminé');
+                            },
+                            (error) => {
+                                console.log('Erreur de sauvegarde : '+ error)
+                            }
+                        )
+      }
+      getAppareilFromServer(){
+          this.httpClient.get<any[]>('https://http-client-demo-18d7a.firebaseio.com/appareils.json')
+                        .subscribe(
+                            (response) => {
+                                this.appareils = response;
+                                this.emitAppareilSubject();
+                            },
+                            (error) => {
+                                console.log('Erreur de chargement : '+error);
+                            }
+                        )
       }
 }

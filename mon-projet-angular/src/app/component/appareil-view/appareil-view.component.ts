@@ -35,13 +35,14 @@ export class AppareilViewComponent implements OnInit {
   }
 
   ngOnInit()
-  {
+  { //this.appareilService.getAppareilFromServer();
     this.appareilSubscription = this.appareilService.appareilSubject.subscribe(
       (apps) => {
         this.appareils = apps;
       }
     );
     this.appareilService.emitAppareilSubject();
+    
   }
 
   onAllumer()
@@ -59,6 +60,14 @@ export class AppareilViewComponent implements OnInit {
       return null;
     }
     
+  }
+
+  onSave(){
+    this.appareilService.saveAppareilToServer();
+  }
+
+  onFetch(){
+    this.appareilService.getAppareilFromServer();
   }
 
 }

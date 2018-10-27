@@ -41,8 +41,11 @@ export class NewUserComponent implements OnInit {
       this.userForm.value['hobbies'] ? this.userForm.value['hobbies'] : []
     );
     this.userService.addUser(newUser);
+    this.userService.saveUsersToServer();
     this.router.navigate(['/users']);
   }
+
+  
 
   getHobbies(){
     return this.userForm.get('hobbies') as FormArray;
